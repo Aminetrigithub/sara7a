@@ -12,8 +12,3 @@ const messageSchema = new Schema({
 );
  export const messageModel =  model('message', messageSchema);
  
-/**
- * jkd
- * fonct.. 
- *alloo
- */
