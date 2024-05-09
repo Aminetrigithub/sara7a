@@ -15,7 +15,6 @@ const addMsg = async (req, res) => {
 };
 
 const getUserMsg =  async(req, res) => {
-
 const messages = await messageModel.find({ receivedId: req.userId });
   res.json({ message: "your messages created are:", messages });
 
