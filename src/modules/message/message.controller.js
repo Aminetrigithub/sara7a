@@ -1,6 +1,6 @@
 import { userModel } from "../../models/user.model.js";
 import { messageModel } from "../../models/message.model.js";
-import jwt from "jsonwebtoken";
+import { sendEmail } from "../../emails/nodemailer.js";
 
 const addMsg = async (req, res) => {
   let { message, receivedId } = req.body;
@@ -16,8 +16,8 @@ const addMsg = async (req, res) => {
 
 const getUserMsg =  async(req, res) => {
 const messages = await messageModel.find({ receivedId: req.userId });
-  res.json({ message: "your messages created are:", messages });
-
+sendEmail()
+res.json({ message: "your messages created are:", messages });
 };
 
 export { addMsg, getUserMsg };
