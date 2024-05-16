@@ -3,7 +3,20 @@ import bcrypt from "bcrypt";
 import { userModel } from "../../models/user.model.js";
 import { sendEmail } from "../../emails/nodemailer.js";
 
-let signUp = async (req, res) => {
+
+
+const verify = (req, res) => { 
+
+  const {token} = req.params;
+  jwt.verify(token, process.env.JWT_KEY, async(err,decoded) => { 
+if(err) res.json(err)
+  await userModel.findOneAndUpdate({email:decoded.email},{verified: true})
+res.json({message: "user is verified"})
+   })
+ }
+
+
+const signUp = async (req, res) => {
   let { name, password, age, email } = req.body;
 
   let user = await userModel.findOne({ email });
@@ -29,4 +42,4 @@ const signIn = async (req, res) => {
 
   return res.json({ message: "User not found" });
 };
-export { signUp, signIn };
+export { signUp, signIn, verify };
